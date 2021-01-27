@@ -6,11 +6,11 @@ from Project.Config import *
 
 app = Flask(__name__)
 
-@app.route('/pornhub', methods = ['POST','GET'])
+@app.route('/xxx', methods = ['POST','GET'])
 def pornhub():
     if request.method == 'POST':
         
-                    payload = request.json
+        payload = request.json
 
         Reply_token = payload['events'][0]['replyToken']
 
@@ -18,7 +18,7 @@ def pornhub():
 
         
 
-        url = "https://www.xnxx.com/search/" + message
+        url = "https://m.spankbang.com/s/" + message
 
         data = requests.get(url)
 
@@ -36,7 +36,7 @@ def pornhub():
 
         soup = BeautifulSoup(data.text,'html.parser')
 
-        for div in soup.find_all('div',{"class":"thumb"}):
+        for div in soup.find_all('div',{"class":"video-item"}):
 
             for getatag in div.find_all('a',href=True):
 
@@ -72,7 +72,7 @@ def pornhub():
 
         for i in range(numberOfClips):
 
-            fullLink.append("https://xnxx.com" + linkTail[i])
+            fullLink.append("https://m.spankbang.com" + linkTail[i])
 
         ReplyMessage(Reply_token,fullLink,Channel_access_token,imgSrc,message,clipCounter)
 
